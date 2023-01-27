@@ -1,15 +1,21 @@
 #include <iostream>
+#include <fstream>
+#include <string> 
 
 using namespace std;
 
 int main()
 {
-    const double pi = 3.14159265358979323846;
-    int radius; 
-    cout << "Enter radius: ";
-    cin >> radius;
+    ifstream input("words.txt");
+    string word;
+    int num = 0;
+    while(input >> word){
+        //cout << word << endl;
+        num++;
+    }
+    input.close();
 
-	cout << pi * (radius * radius) << endl;
-	
-	return 0;
+    cout << num << endl;
+    
+    return 0;
 }
