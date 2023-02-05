@@ -27,11 +27,5 @@ int main()
             cout << "ODD" << endl;
         }  
     }
-    
-    
-
-    
-
-
     return 0;
 }

@@ -53,11 +53,11 @@ int main() {
     cout << "Enter index: ";
     cin >> index;
 
-    cout << bitset<32>(n) << endl; 
+    cout << "N in binary format: " << bitset<32>(n) << endl; 
 
-    cout << getBit(n, index) << endl;
-    cout << setBit(n, index) << endl;
-    cout << clearBit(n, index) << endl;
+    cout << "Bit at index: " <<getBit(n, index) << endl;
+    cout << "N aftter setBit: " << setBit(n, index) << endl;
+    cout << "N after clearBit: " << clearBit(n, index) << endl;
 
     return 0;
 }
