@@ -1,0 +1,4 @@
+3
+Bjarne Stroustrup bstroustrup@ucmerced.edu
+Guido Rossum grossum@ucmerced.edu
+Ada Lovelace alovelca@ucmerced.edu

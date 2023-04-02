@@ -1,0 +1,15 @@
+---
+Input:
+A
+A
+A
+B
+B
+B
+AB
+Output:
+2 2
+2 1
+---
+
+THIS TEST CASE RESULTS IN AN INFINITE LOOP BECAUSE THERE IS NO QUIT 

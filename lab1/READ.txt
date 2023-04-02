@@ -1,0 +1,5 @@
+Parts 1-4 are done on separate files with corresponding names which print out what was asked.
+
+Parts 5-6 are done on fillvector.cpp, when printed out I separated them. 
+
+If I did anything wrong or can do something to make things easier for you to grade please let me know. 
