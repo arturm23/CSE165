@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-e5f46673e9d6af3a5e41.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Desmos",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Desmos::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Desmos-Debug-b0c7c4c1b3e9cf426127.json",
+					"name" : "Desmos",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Desmos_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Desmos_autogen-Debug-7ee7bf8c8e464b8f0929.json",
+					"name" : "Desmos_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Desmos_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Desmos_autogen_timestamp_deps-Debug-0b36c003adeba060ab8d.json",
+					"name" : "Desmos_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/musay/OneDrive/Desktop/CSE165/build-Desmos-Desktop_Qt_6_5_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/musay/OneDrive/Desktop/CSE165/Desmos"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
