@@ -5,39 +5,36 @@
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>
+#include "Tile.h"
+#include "Empty.h"
+#include "Floor.h"
+
+Tile* board[200][200];
 
 void display(){
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    glBegin( GL_LINES );
-    glColor3f( 1.0f, 0.0f, 0.0f );
-    glVertex2f( -0.5f, 0.0f );
-    glColor3f( 0.0f, 1.0f, 0.0f );
-    glVertex2f( 0.5f, 0.0f );
-    glEnd();
-    glColor3f( 0.0f, 0.0f, 1.0f );
-    glBegin( GL_LINES );
-    glVertex2f( 0.0f, -0.5f );
-    glVertex2f( 0.0f, 0.5f );
-    glEnd();
-    glColor3f( 1.0f, 1.0f, 1.0f );
-    glBegin( GL_TRIANGLES );
-    glVertex2f( 0.1f, 0.1f );
-    glVertex2f( 0.4f, 0.1f );
-    glVertex2f( 0.25f, 0.4f );
-    glEnd();
-    
-    
-    glutSwapBuffers();
-    
+    // top left, top right, bottom right, bottom left
+    Floor f;
+    f.draw();
 }
+
 
 int main(int argc, char * argv[]) {
     
+    
+    for(int i = 0; i < 200; i++){
+        for(int j = 0; j < 200; j++){
+            board[i][j] = new Empty();
+        }
+    }
+    int offset = 100;
+    
+    
     glutInit( &argc, argv );
     glutInitWindowPosition( 100, 100 );
-    glutInitWindowSize( 800, 600 );
+    glutInitWindowSize( 2400, 600 );
     glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH );
     glutCreateWindow( "Basic OpenGL Project" );
+    
     
     glutDisplayFunc( display );
     glutMainLoop();

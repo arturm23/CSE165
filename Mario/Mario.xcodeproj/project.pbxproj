@@ -25,6 +25,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC681AA129E2475C0037F949 /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		AC681AA429E25D480037F949 /* Empty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Empty.h; sourceTree = "<group>"; };
+		AC681AA529E36E730037F949 /* Floor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Floor.h; sourceTree = "<group>"; };
 		ACB4052D29E0F15F00977A93 /* Mario */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Mario; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB4053029E0F15F00977A93 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ACB4053829E0F18B00977A93 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -65,6 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				ACB4053029E0F15F00977A93 /* main.cpp */,
+				AC681AA129E2475C0037F949 /* Tile.h */,
+				AC681AA429E25D480037F949 /* Empty.h */,
+				AC681AA529E36E730037F949 /* Floor.h */,
 			);
 			path = Mario;
 			sourceTree = "<group>";
