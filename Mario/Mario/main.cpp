@@ -5,16 +5,50 @@
 #include <OpenGL/gl.h>
 #include <OpenGl/glu.h>
 #include <GLUT/glut.h>
+#include <vector>
+
 #include "Tile.h"
 #include "Empty.h"
 #include "Floor.h"
+#include "Background.h"
+#include "Tube.h"
+#include "Flag.h"
+
 
 Tile* board[200][200];
+vector<Tile*> init;
+
 
 void display(){
     // top left, top right, bottom right, bottom left
-    Floor f;
-    f.draw();
+    init.push_back(new Background());
+    init.push_back(new Floor());
+    init.push_back(new Tube());
+    init.push_back(new Flag());
+   
+   
+    for(int i = 0; i < init.size(); i++){
+        init[i]->draw();
+    }
+    
+    glutSwapBuffers();
+}
+
+void myKey(unsigned char key, int x, int y){
+    if(key == 'B' | key == 'b'){
+        if(dynamic_cast<Flag*>(init[3])->offset > -1){
+            for(int i = 0; i < 10; i++){
+                glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+                for(int i = 0; i < init.size(); i++){
+                    if(i != 3){
+                        init[i]->draw();
+                    }
+                }
+                dynamic_cast<Flag*>(init[3])->move();
+                glutSwapBuffers();
+            }
+        }
+    }
 }
 
 
@@ -37,6 +71,7 @@ int main(int argc, char * argv[]) {
     
     
     glutDisplayFunc( display );
+    glutKeyboardFunc( myKey );
     glutMainLoop();
     return EXIT_SUCCESS;
    

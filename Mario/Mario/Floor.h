@@ -13,10 +13,9 @@
 
 using namespace std;
 
-class Floor {
+class Floor : public Tile{
 public:
     void draw(){
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         glBegin( GL_QUADS );
             glColor3f(0.922,0.333,0.204);
             glVertex3f(-1, -0.7, 0.0);
@@ -48,7 +47,6 @@ public:
                 }
             }
         }
-        glutSwapBuffers();
     }
 };
 
