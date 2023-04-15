@@ -21,8 +21,11 @@ public:
     int starty;
     int width;
     int height;
+    float offsetx = 0;
+    float offsety = 0;
 
     virtual void draw() = 0;
+    virtual void move() = 0;
 };
 
 

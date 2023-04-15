@@ -16,9 +16,8 @@ using namespace std;
 class Empty : public Tile{
 public:
     
-    void draw(){
-        
-    };
+    void draw(){};
+    void move(){};
 };
 
 

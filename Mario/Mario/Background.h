@@ -24,8 +24,16 @@ public:
             glVertex3f(1, -1, 1);
             glVertex3f(-1, -1, 1);
         glEnd();
-        
     }
+    void move(){
+        glBegin( GL_QUADS );
+            glColor3f(0.18,0.796,1.0);
+            glVertex3f(-1, 1, 1);
+            glVertex3f(1, 1, 1);
+            glVertex3f(1, -1, 1);
+            glVertex3f(-1, -1, 1);
+        glEnd();
+    };
 };
 
 #endif /* Background_h */
