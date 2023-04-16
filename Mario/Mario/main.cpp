@@ -14,6 +14,7 @@
 #include "Tube.h"
 #include "Flag.h"
 #include "Goomba.h"
+#include "Mario.h"
 
 
 Tile* board[200][200];
@@ -24,7 +25,7 @@ bool dir = true;
 void redraw(int index){
     for(int i = 0; i < init.size(); i++){
         if(i != index){
-            init[i]->move();
+            init[i]->draw();
         }
     }
 }
@@ -49,7 +50,7 @@ void goombaUpdate(){
         //redraw everything except for whats moving
         redraw(4);
         //use move to draw the moving object
-        init[4]->move();
+        init[4]->draw();
         //update the screen
         glutSwapBuffers();
         //change the offset
@@ -70,7 +71,7 @@ void display(){
     init.push_back(new Tube());
     init.push_back(new Flag());
     init.push_back(new Goomba());
-   
+    init.push_back(new Mario());
    
     for(int i = 0; i < init.size(); i++){
         init[i]->draw();
@@ -89,7 +90,7 @@ void myKey(unsigned char key, int x, int y){
                 //redraw everything except for whats moving
                 redraw(3);
                 //use move to draw the moving object
-                init[3]->move();
+                init[3]->draw();
                 //update the screen
                 glutSwapBuffers();
                 //change the offset

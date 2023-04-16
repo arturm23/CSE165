@@ -25,7 +25,7 @@ public:
     float offsety = 0;
 
     virtual void draw() = 0;
-    virtual void move() = 0;
+    
 };
 
 

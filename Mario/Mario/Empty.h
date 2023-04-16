@@ -17,7 +17,7 @@ class Empty : public Tile{
 public:
     
     void draw(){};
-    void move(){};
+    
 };
 
 
