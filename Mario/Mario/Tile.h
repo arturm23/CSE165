@@ -21,8 +21,12 @@ public:
     int starty;
     int width;
     int height;
+    
+    bool dir = true;
     float offsetx = 0;
     float offsety = 0;
+    float next_offsetx = 0;
+    float next_offsety = 0;
 
     virtual void draw() = 0;
     

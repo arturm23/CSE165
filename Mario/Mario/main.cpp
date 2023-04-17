@@ -19,90 +19,104 @@
 
 Tile* board[200][200];
 vector<Tile*> init;
-bool dir = true;
 
 
-void redraw(int index){
+
+void redraw(){
     for(int i = 0; i < init.size(); i++){
-        if(i != index){
-            init[i]->draw();
-        }
+        init[i]->draw();
     }
 }
 
-void goombaDir(){
-    if(dir){
+
+
+void goombaUpdate(){
+    if(init[4]->dir){
         init[4]->offsetx -= 0.004;
     } else {
         init[4]->offsetx += 0.004;
     }
     if(init[4]->offsetx < -0.4){
-        dir = false;
+        init[4]->dir = false;
     }
     if(init[4]->offsetx > 0){
-        dir = true;
+        init[4]->dir = true;
     }
 }
 
-void goombaUpdate(){
-        //clear
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-        //redraw everything except for whats moving
-        redraw(4);
-        //use move to draw the moving object
-        init[4]->draw();
-        //update the screen
-        glutSwapBuffers();
-        //change the offset
-        goombaDir();
+void flagUpdate(){
+    if(init[3]->offsety > init[3]->next_offsety){
+        init[3]->offsety -= 0.008;
+    }
+}
+
+void marioUpdate(){
+    if(init[5]->dir){
+        if(init[5]->offsetx < init[5]->next_offsetx){
+            init[5]->offsetx += 0.008;
+        }
+    } else {
+        if(init[5]->offsetx > init[5]->next_offsetx){
+            init[5]->offsetx -= 0.008;
+        }
+    }
+    
 }
 
 
 void myIdle(){
     goombaUpdate();
+    flagUpdate();
+    marioUpdate();
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    redraw();
+    glutSwapBuffers();
+    
 }
 
 
 
 void display(){
     // top left, top right, bottom right, bottom left
-    init.push_back(new Background());
-    init.push_back(new Floor());
-    init.push_back(new Tube());
-    init.push_back(new Flag());
-    init.push_back(new Goomba());
-    init.push_back(new Mario());
+    init.push_back(new Background());  // 0
+    init.push_back(new Floor());       // 1
+    init.push_back(new Tube());        // 2
+    init.push_back(new Flag());        // 3
+    init.push_back(new Goomba());      // 4
+    init.push_back(new Mario());       // 5
    
     for(int i = 0; i < init.size(); i++){
         init[i]->draw();
     }
-    
     glutSwapBuffers();
 }
 
 void myKey(unsigned char key, int x, int y){
-    if(key == 'B' | key == 'b'){
-        //make sure win only triggers once 
-        if((init[3])->offsety > -0.5){
-            while((init[3])->offsety >  -0.99){
-                //clear
-                glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-                //redraw everything except for whats moving
-                redraw(3);
-                //use move to draw the moving object
-                init[3]->draw();
-                //update the screen
-                glutSwapBuffers();
-                //change the offset
-                init[3]->offsety -= 0.006;
+    switch (key) {
+        case 'B':
+        case 'b':
+            if((init[3])->offsety > -0.5){
+                init[3]->next_offsety = -0.99;
             }
-        }
+            break;
+        case 'D':
+        case 'd':
+            init[5]->next_offsetx += 0.1;
+            init[5]->dir = true;
+            break;
+        case 'A':
+        case 'a':
+            init[5]->next_offsetx -= 0.1;
+            init[5]->dir = false;
+            break;
+        default:
+            break;
     }
+   
 }
 
 
 int main(int argc, char * argv[]) {
-    
     
     for(int i = 0; i < 200; i++){
         for(int j = 0; j < 200; j++){
