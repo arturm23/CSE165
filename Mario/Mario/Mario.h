@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class Mario : public Tile{
+class Mario : public Tile {
 public:
     
     void draw(){

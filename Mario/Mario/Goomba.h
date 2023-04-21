@@ -13,6 +13,7 @@ using namespace std;
 class Goomba : public Tile{
 public:
     void draw(){
+       
         glBegin( GL_QUADS );
             glColor3f(0.878,0.686,0.8);
             glVertex3f(0.14 + offsetx, -0.697 + offsety, 0.0);

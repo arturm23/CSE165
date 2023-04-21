@@ -17,10 +17,11 @@ using namespace std;
 
 class Tile {
 public:
-    int startx;
-    int starty;
-    int width;
-    int height;
+    float startx_right = 0;
+    float starty_right = 0;
+    float startx_left = 0;
+    float starty_left = 0;
+    
     
     bool dir = true;
     float offsetx = 0;
