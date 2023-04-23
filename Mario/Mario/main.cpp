@@ -7,7 +7,7 @@
 #include <GLUT/glut.h>
 #include <vector>
 #include <string>
-#include <chrono>
+#include <math.h>
 
 #include "Tile.h"
 #include "Empty.h"
@@ -17,6 +17,8 @@
 #include "Flag.h"
 #include "Goomba.h"
 #include "Mario.h"
+
+
 
 using namespace std;
 
@@ -84,7 +86,6 @@ void lose(){
 void checklose(){
     
     if(init[5]->offsetx >= 0.44 && init[5]->offsetx <= 1.008){
-      
         if(init[4]->dir){
             //goomba moving left
             if(init[4]->startx_left + init[4]->offsetx < init[5]->startx_right + init[5]->offsetx
@@ -118,6 +119,28 @@ void goombaUpdate(){
         init[4]->dir = true;
     }
 }
+void jump(){
+   
+    if(init[5]->diry){
+        
+        if((fabs(init[5]->offsety - init[5]->next_offsety) <= 0.001 * fabs(init[5]->offsety)) && init[5]->offsety != 0) {
+            init[5]->next_offsety = 0;
+            init[5]->diry = false;
+        }
+        
+        if(init[5]->offsety < init[5]->next_offsety ){
+            init[5]->offsety += 0.008;
+        }
+        
+        
+    } else {
+        if(init[5]->offsety > init[5]->next_offsety){
+            init[5]->offsety -= 0.008;
+        }
+    }
+    //if there is a gap between nextoffsety and offsety and diry == true go up
+    //if nextoffsety == offsety, set nextoffsety back down to where it should be
+}
 
 
 void marioUpdate(){
@@ -139,10 +162,12 @@ void marioUpdate(){
     
 }
 
+
 void myIdle(){
     goombaUpdate();
     //flagUpdate();
     marioUpdate();
+    jump();
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     redraw();
     glutSwapBuffers();
@@ -172,17 +197,39 @@ void display(){
 }
 
 void myKey(unsigned char key, int x, int y){
+    double curr = init[5]->startx_right + init[5]->offsetx;
     switch (key) {
-       
+        case 'W':
+        case 'w':
+            init[5]->next_offsety += 0.296;
+            init[5]->diry = true;
+            break;
         case 'D':
         case 'd':
-            init[5]->next_offsetx += 0.048;
-            init[5]->dir = true;
+            if(curr + 0.048 > -0.46 && curr + 0.048 < -0.29){
+                init[5]->next_offsetx = 0.256;
+                init[5]->dir = true;
+            } else if(curr + 0.048 > 0.19 && curr + 0.048 < 0.36)  {
+                init[5]->next_offsetx = 0.896;
+                init[5]->dir = true;
+            } else {
+                init[5]->next_offsetx += 0.048;
+                init[5]->dir = true;
+            }
             break;
         case 'A':
         case 'a':
-            init[5]->next_offsetx -= 0.048;
-            init[5]->dir = false;
+            if(curr - 0.48 < -0.29 && curr - 0.48 > -0.46){
+                init[5]->next_offsetx = 0.424;
+                init[5]->dir = false;
+            } else if(curr - 0.48 < 0.36 && curr - 0.48 > 0.19) {
+                init[5]->next_offsetx = 1.072;
+                init[5]->dir = false;
+            }
+            else {
+                init[5]->next_offsetx -= 0.048;
+                init[5]->dir = false;
+            }
             break;
         default:
             break;

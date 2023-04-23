@@ -17,17 +17,19 @@ using namespace std;
 
 class Tile {
 public:
-    float startx_right = 0;
-    float starty_right = 0;
-    float startx_left = 0;
-    float starty_left = 0;
+    double startx_right = 0;
+    double starty_right = 0;
+    double startx_left = 0;
+    double starty_left = 0;
     
     
     bool dir = true;
-    float offsetx = 0;
-    float offsety = 0;
-    float next_offsetx = 0;
-    float next_offsety = 0;
+    bool diry = true;
+    double offsetx = 0;
+    double offsety = 0;
+    double next_offsetx = 0;
+    double next_offsety = 0;
+    double ground = -0.697;
 
     virtual void draw() = 0;
     
