@@ -22,8 +22,9 @@
 
 using namespace std;
 
-Tile* board[200][200];
+
 vector<Tile*> init;
+double ground = 0;
 
 
 void redraw(){
@@ -85,7 +86,7 @@ void lose(){
 }
 void checklose(){
     
-    if(init[5]->offsetx >= 0.44 && init[5]->offsetx <= 1.008){
+    if(init[5]->offsetx >= 0.44 && init[5]->offsetx <= 1.008 && init[5]->offsety < 0.15){
         if(init[4]->dir){
             //goomba moving left
             if(init[4]->startx_left + init[4]->offsetx < init[5]->startx_right + init[5]->offsetx
@@ -107,10 +108,10 @@ void goombaUpdate(){
     // 0.44
     //1.008
     if(init[4]->dir){
-        init[4]->offsetx -= 0.004;
+        init[4]->offsetx -= 0.001;
     //right
     } else {
-        init[4]->offsetx += 0.004;
+        init[4]->offsetx += 0.001;
     }
     if(init[4]->offsetx < -0.4){
         init[4]->dir = false;
@@ -119,22 +120,41 @@ void goombaUpdate(){
         init[4]->dir = true;
     }
 }
+void ground_update(){
+    double right = init[5]->startx_right + init[5]->offsetx;
+    double left = init[5]->startx_left + init[5]->offsetx;
+    
+  
+    if( (right - (-0.46)) > ( (fabs(right) < fabs(-0.46) ? fabs(-0.46) : fabs(right)) * 0.001)
+       && ((-0.29) - left) > ( (fabs(left) < fabs(-0.29) ? fabs(-0.29) : fabs(left)) * 0.001)){
+        ground = 0.232;
+    } else if((right - 0.19) > ( (fabs(right) < fabs(0.19) ? fabs(0.19) : fabs(right)) * 0.001)
+              && (0.36 - left) > ( (fabs(left) < fabs(0.36) ? fabs(0.36) : fabs(left)) * 0.001))  {
+        ground = 0.48;
+    } else {
+        ground = 0;
+    }
+}
+
 void jump(){
-   
+    ground_update();
+    double a = init[5]->offsety;
+    double b = init[5]->next_offsety;
+    
+   // cout << init[5]->diry << " " << init[5]->offsety << " " << init[5]->next_offsety << " " << ground << endl ;
+    if((fabs(a - b) <= 0.001 * fabs(a)) && b != 0) {
+        init[5]->next_offsety = ground;
+        init[5]->diry = false;
+    }
     if(init[5]->diry){
-        
-        if((fabs(init[5]->offsety - init[5]->next_offsety) <= 0.001 * fabs(init[5]->offsety)) && init[5]->offsety != 0) {
-            init[5]->next_offsety = 0;
-            init[5]->diry = false;
-        }
-        
-        if(init[5]->offsety < init[5]->next_offsety ){
+       
+        if((b - a) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001) ){
             init[5]->offsety += 0.008;
         }
-        
-        
     } else {
-        if(init[5]->offsety > init[5]->next_offsety){
+        
+       
+        if((a - b) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001)){
             init[5]->offsety -= 0.008;
         }
     }
@@ -161,6 +181,7 @@ void marioUpdate(){
     checklose();
     
 }
+
 
 
 void myIdle(){
@@ -197,19 +218,26 @@ void display(){
 }
 
 void myKey(unsigned char key, int x, int y){
-    double curr = init[5]->startx_right + init[5]->offsetx;
+    double right = init[5]->startx_right + init[5]->offsetx;
+    double left = init[5]->startx_left + init[5]->offsetx;
+    double a = abs(init[5]->next_offsety - init[5]->offsety);
+    double b = 0.001;
     switch (key) {
         case 'W':
         case 'w':
-            init[5]->next_offsety += 0.296;
-            init[5]->diry = true;
+           
+            if( (b - a) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001) ){
+                init[5]->next_offsety += 0.4;
+                init[5]->diry = true;
+            }
+
             break;
         case 'D':
         case 'd':
-            if(curr + 0.048 > -0.46 && curr + 0.048 < -0.29){
+            if(right + 0.048 > -0.46 && right + 0.048 < -0.29 && init[5]->offsety < 0.23){
                 init[5]->next_offsetx = 0.256;
                 init[5]->dir = true;
-            } else if(curr + 0.048 > 0.19 && curr + 0.048 < 0.36)  {
+            } else if(right + 0.048 > 0.19 && right + 0.048 < 0.36 && init[5]->offsety < 0.48)  {
                 init[5]->next_offsetx = 0.896;
                 init[5]->dir = true;
             } else {
@@ -219,10 +247,12 @@ void myKey(unsigned char key, int x, int y){
             break;
         case 'A':
         case 'a':
-            if(curr - 0.48 < -0.29 && curr - 0.48 > -0.46){
+            if(left - 0.048 < -0.29 && left - 0.048 > -0.46){
+                //fix the offset
                 init[5]->next_offsetx = 0.424;
                 init[5]->dir = false;
-            } else if(curr - 0.48 < 0.36 && curr - 0.48 > 0.19) {
+            } else if(left - 0.048 < 0.36 && left - 0.048 > 0.19) {
+                //fix the offset
                 init[5]->next_offsetx = 1.072;
                 init[5]->dir = false;
             }
@@ -240,14 +270,6 @@ void myKey(unsigned char key, int x, int y){
 
 int main(int argc, char * argv[]) {
         
-    for(int i = 0; i < 200; i++){
-        for(int j = 0; j < 200; j++){
-            board[i][j] = new Empty();
-        }
-    }
-    int offset = 100;
-    
-    
     glutInit( &argc, argv );
     glutInitWindowPosition( 100, 100 );
     glutInitWindowSize( 2400, 600 );
