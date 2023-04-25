@@ -164,6 +164,7 @@ void jump(){
 
 
 void marioUpdate(){
+    cout << init[5]->offsetx << endl;
     if(init[5]->dir){
         if(init[5]->offsetx < init[5]->next_offsetx){
             init[5]->offsetx += 0.008;
@@ -174,7 +175,9 @@ void marioUpdate(){
         }
     }
     else {
-        if(init[5]->offsetx > init[5]->next_offsetx){
+        double a = init[5]->offsetx;
+        double b = init[5]->next_offsetx;
+        if( (a - b) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001) ){
             init[5]->offsetx -= 0.008;
         }
     }
@@ -204,6 +207,7 @@ void display(){
     init.push_back(new Flag());        // 3
     init.push_back(new Goomba());      // 4
     init.push_back(new Mario());       // 5
+  
    
     init[4]->startx_left = 0.14;
     init[4]->startx_right = 0.17;
@@ -227,18 +231,17 @@ void myKey(unsigned char key, int x, int y){
         case 'w':
            
             if( (b - a) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001) ){
-                init[5]->next_offsety += 0.4;
+                init[5]->next_offsety += 0.504;
                 init[5]->diry = true;
             }
-
             break;
         case 'D':
         case 'd':
-            if(right + 0.048 > -0.46 && right + 0.048 < -0.29 && init[5]->offsety < 0.23){
+            if(right + 0.048 > -0.46 && right + 0.048 < -0.29 && init[5]->offsety < 0.1){
                 init[5]->next_offsetx = 0.256;
                 init[5]->dir = true;
             } else if(right + 0.048 > 0.19 && right + 0.048 < 0.36 && init[5]->offsety < 0.48)  {
-                init[5]->next_offsetx = 0.896;
+                init[5]->next_offsetx = 0.912;
                 init[5]->dir = true;
             } else {
                 init[5]->next_offsetx += 0.048;
@@ -247,13 +250,13 @@ void myKey(unsigned char key, int x, int y){
             break;
         case 'A':
         case 'a':
-            if(left - 0.048 < -0.29 && left - 0.048 > -0.46){
+            if(left - 0.048 < -0.29 && left - 0.048 > -0.46 && init[5]->offsety < 0.23){
                 //fix the offset
-                init[5]->next_offsetx = 0.424;
+                init[5]->next_offsetx = 0.552;
                 init[5]->dir = false;
-            } else if(left - 0.048 < 0.36 && left - 0.048 > 0.19) {
+            } else if(left - 0.048 < 0.36 && left - 0.048 > 0.19 && init[5]->offsety < 0.48) {
                 //fix the offset
-                init[5]->next_offsetx = 1.072;
+                init[5]->next_offsetx = 1.208;
                 init[5]->dir = false;
             }
             else {
