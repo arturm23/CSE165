@@ -85,7 +85,6 @@ void lose(){
     exit(0);
 }
 void checklose(){
-    
     if(init[5]->offsetx >= 0.44 && init[5]->offsetx <= 1.008 && init[5]->offsety < 0.15){
         if(init[4]->dir){
             //goomba moving left
@@ -93,7 +92,6 @@ void checklose(){
                && init[4]->startx_left + init[4]->offsetx > init[5]->startx_left + init[5]->offsetx ){
                 lose();
             }
-           
         } else {
             if(init[4]->startx_right + init[4]->offsetx > init[5]->startx_left + init[5]->offsetx
                && init[4]->startx_right + init[4]->offsetx < init[5]->startx_right + init[5]->offsetx ){
@@ -104,26 +102,21 @@ void checklose(){
 }
 
 void goombaUpdate(){
-    //left
-    // 0.44
-    //1.008
     if(init[4]->dir){
         init[4]->offsetx -= 0.001;
-    //right
     } else {
         init[4]->offsetx += 0.001;
     }
     if(init[4]->offsetx < -0.4){
         init[4]->dir = false;
     }
-    if(init[4]->offsetx > 0){
+    if(init[4]->offsetx > -0.05){
         init[4]->dir = true;
     }
 }
 void ground_update(){
     double right = init[5]->startx_right + init[5]->offsetx;
     double left = init[5]->startx_left + init[5]->offsetx;
-    
   
     if( (right - (-0.46)) > ( (fabs(right) < fabs(-0.46) ? fabs(-0.46) : fabs(right)) * 0.001)
        && ((-0.29) - left) > ( (fabs(left) < fabs(-0.29) ? fabs(-0.29) : fabs(left)) * 0.001)){
@@ -141,30 +134,23 @@ void jump(){
     double a = init[5]->offsety;
     double b = init[5]->next_offsety;
     
-   // cout << init[5]->diry << " " << init[5]->offsety << " " << init[5]->next_offsety << " " << ground << endl ;
     if((fabs(a - b) <= 0.001 * fabs(a)) && b != 0) {
         init[5]->next_offsety = ground;
         init[5]->diry = false;
     }
     if(init[5]->diry){
-       
         if((b - a) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001) ){
             init[5]->offsety += 0.008;
         }
     } else {
-        
-       
         if((a - b) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * 0.001)){
             init[5]->offsety -= 0.008;
         }
     }
-    //if there is a gap between nextoffsety and offsety and diry == true go up
-    //if nextoffsety == offsety, set nextoffsety back down to where it should be
+   
 }
 
-
 void marioUpdate(){
-    cout << init[5]->offsetx << endl;
     if(init[5]->dir){
         if(init[5]->offsetx < init[5]->next_offsetx){
             init[5]->offsetx += 0.008;
@@ -182,14 +168,12 @@ void marioUpdate(){
         }
     }
     checklose();
-    
 }
 
 
 
 void myIdle(){
     goombaUpdate();
-    //flagUpdate();
     marioUpdate();
     jump();
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -209,8 +193,9 @@ void display(){
     init.push_back(new Mario());       // 5
   
    
-    init[4]->startx_left = 0.14;
-    init[4]->startx_right = 0.17;
+    init[4]->startx_left = 0.135;
+    init[4]->startx_right = 0.215;
+    init[4]->offsetx -= 0.05;
     init[5]->startx_left = -0.85;
     init[5]->startx_right = -0.72;
   
